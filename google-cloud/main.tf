@@ -14,7 +14,7 @@ provider "google" {
   credentials = file("service-account.json")
 }
 
-resource "google_sql_database_instance" "sample" {
+resource "google_sql_database_instance" "instance" {
   # 任意の名前に変更
   name             = "sample-instance"
   database_version = "MYSQL_8_0"
@@ -23,4 +23,18 @@ resource "google_sql_database_instance" "sample" {
   settings {
     tier = "db-f1-micro"
   }
+}
+
+resource "google_sql_database" "database" {
+  # 任意の名前に変更
+  name     = "sample-database"
+  instance = google_sql_database_instance.instance.name
+}
+
+resource "google_sql_user" "users" {
+  name     = "${var.users_name}"
+  instance = google_sql_database_instance.instance.name
+  # すべてのホスト
+  host     = "%"
+  password = "${var.users_password}"
 }
