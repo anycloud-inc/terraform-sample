@@ -1,7 +1,4 @@
 .terraform
 .terraform.lock.hcl
-*.tfstate
 *.tfstate.*
-tfplan
-prod.tfvars
 service-account.json

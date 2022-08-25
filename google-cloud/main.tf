@@ -30,11 +30,3 @@ resource "google_sql_database" "database" {
   name     = "sample-database"
   instance = google_sql_database_instance.instance.name
 }
-
-resource "google_sql_user" "users" {
-  name     = "${var.users_name}"
-  instance = google_sql_database_instance.instance.name
-  # すべてのホスト
-  host     = "%"
-  password = "${var.users_password}"
-}
